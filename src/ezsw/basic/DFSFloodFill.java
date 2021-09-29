@@ -1,4 +1,4 @@
-package ezsw;
+package ezsw.basic;
 
 import java.util.Scanner;
 import java.util.Stack;

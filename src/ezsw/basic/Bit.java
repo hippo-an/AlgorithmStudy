@@ -1,4 +1,4 @@
-package ezsw;
+package ezsw.basic;
 
 public class Bit {
     /**

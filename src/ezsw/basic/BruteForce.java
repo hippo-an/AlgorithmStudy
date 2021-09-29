@@ -1,4 +1,4 @@
-package ezsw;
+package ezsw.basic;
 
 /**
  * 상대적으로 구현이 간단, 해가 존재하면 항상 찾게 된다.

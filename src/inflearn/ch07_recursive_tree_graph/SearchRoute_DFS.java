@@ -1,7 +1,7 @@
-package inflearn.recursive_tree_graph;
+package inflearn.ch07_recursive_tree_graph;
 
 /**
- * 경로 탐색(인접리스트)
+ * 경로 탐색(인접행렬)
  * 방향그래프가 주어지면 1번 정점에서 N번 정점으로 가는 모든 경로의 가지 수를 출력하는 프
  * 로그램을 작성하세요. 아래 그래프에서 1번 정점에서 5번 정점으로 가는 가지 수는
  * 1 2 3 4 5
@@ -30,37 +30,28 @@ package inflearn.recursive_tree_graph;
  * ▣ 출력예제 1
  * 6
  */
-// 정점의 갯수가 많을 경우 인접 리스트를 사용한다.
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class SearchRoute_CloseList {
+public class SearchRoute_DFS {
 
-    static List<ArrayList<Integer>> g;
+    static int[][] g;
     static int[] ch;
     static int n, m, answer = 0;
-
     public static void main(String[] args) {
-        SearchRoute_CloseList main = new SearchRoute_CloseList();
+        SearchRoute_DFS main = new SearchRoute_DFS();
         Scanner sc = new Scanner(System.in);
 
         n = sc.nextInt();
         m = sc.nextInt();
-        g = new ArrayList<ArrayList < Integer >>();
+        g = new int[n+1][n+1];
+        ch = new int[n+1];
 
-        for(int i = 0 ; i <= n; i++) {
-            g.add(new ArrayList<Integer>());
-        }
-
-        ch = new int[n + 1];
-
-        for (int i = 0; i < m; i++) {
+        for(int i = 0; i < m; i++) {
             int a = sc.nextInt();
             int b = sc.nextInt();
 
-            g.get(a).add(b);
+            g[a][b] = 1;
         }
 
         ch[1] = 1;
@@ -72,11 +63,11 @@ public class SearchRoute_CloseList {
     private void dfs(int v) {
         if(v == n) answer++;
         else {
-            for (int nv : g.get(v)) {
-                if(ch[nv] == 0) {
-                    ch[nv] = 1;
-                    dfs(nv);
-                    ch[nv] = 0;
+            for(int i = 1; i <= n; i++) {
+                if(g[v][i] == 1 && ch[i] == 0) {
+                    ch[i] = 1;
+                    dfs(i);
+                    ch[i] = 0;
                 }
             }
         }

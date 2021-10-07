@@ -1,4 +1,4 @@
-package inflearn.recursive_tree_graph;
+package inflearn.ch07_recursive_tree_graph;
 
 /**
  * 8. 송아지 찾기 1(BFS : 상태트리탐색)

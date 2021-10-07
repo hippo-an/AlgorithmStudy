@@ -1,4 +1,4 @@
-package inflearn.recursive_tree_graph;
+package inflearn.ch07_recursive_tree_graph;
 /**
  * 이진트리 순회(넓이우선탐색 : 레벨탐색)
  * 아래 그림과 같은 이진트리를 레벨탐색 연습하세요.

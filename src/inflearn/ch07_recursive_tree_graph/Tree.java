@@ -1,4 +1,4 @@
-package inflearn.recursive_tree_graph;
+package inflearn.ch07_recursive_tree_graph;
 
 /**
  * 이진트리 순회(깊이우선탐색)

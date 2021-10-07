@@ -1,4 +1,5 @@
-package inflearn.recursive_tree_graph;
+package inflearn.ch07_recursive_tree_graph;
+
 /**
  * Tree 말단 노드까지의 가장 짧은 경로
  * 아래 그림과 같은 이진트리에서 루트 노드 1에서 말단노드까지의 길이 중 가장 짧은 길이를
@@ -10,10 +11,7 @@ package inflearn.recursive_tree_graph;
  * 4 5
  * 가장 짧은 길이는 3번 노느까지의 길이인 1이다.
  */
-
-import java.util.*;
-
-public class TreeLeafNodeShortest_BFS {
+public class TreeLeafNodeShortest_DFS {
 
     static class Node {
         int data;
@@ -28,34 +26,21 @@ public class TreeLeafNodeShortest_BFS {
     Node root;
 
     public static void main(String[] args) {
-        TreeLeafNodeShortest_BFS main = new TreeLeafNodeShortest_BFS();
+        TreeLeafNodeShortest_DFS main = new TreeLeafNodeShortest_DFS();
         main.root = new Node(1);
         main.root.lt = new Node(2);
         main.root.rt = new Node(3);
         main.root.lt.lt = new Node(4);
         main.root.lt.rt = new Node(5);
-        System.out.println(main.bfs(main.root));
+        System.out.println(main.dfs(0, main.root));
 
     }
 
-    private int bfs(Node root) {
-
-        Queue<Node> q = new LinkedList<>();
-        q.offer(root);
-        int l = 0;
-
-        while(!q.isEmpty()) {
-            int len = q.size();
-            for(int i = 0; i < len; i++) {
-                Node curr = q.poll();
-
-                if(curr.lt == null && curr.rt == null) return l;
-
-                if(curr.lt != null) q.offer(curr.lt);
-                if(curr.rt != null) q.offer(curr.rt);
-            }
-            l++;
+    private int dfs(int l, Node root) {
+        if(root.lt == null && root.rt == null) {
+            return l;  // 변수 노드의 레벨
+        } else {
+            return Math.min(dfs(l + 1, root.lt), dfs(l + 1, root.rt));
         }
-        return -1;
     }
 }

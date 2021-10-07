@@ -1,4 +1,4 @@
-package inflearn.recursive_tree_graph;
+package inflearn.ch07_recursive_tree_graph;
 
 /**
  * 그래프 최단거리(BFS)

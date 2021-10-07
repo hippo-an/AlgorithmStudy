@@ -1,4 +1,4 @@
-package inflearn.recursive_tree_graph;
+package inflearn.ch07_recursive_tree_graph;
 
 /**
  * 재귀함수

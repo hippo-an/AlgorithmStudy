@@ -4,8 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.StringTokenizer;
 
 public class FourDices_2484 {
 
@@ -14,18 +13,27 @@ public class FourDices_2484 {
         int ans = 0;
         String cnt = br.readLine();
         for (int i = 0; i < Integer.parseInt(cnt); i++) {
-            String read = br.readLine();
-            List<Integer> d = Arrays.stream(read.split(" ")).map(Integer::parseInt).sorted().collect(Collectors.toList());
+            StringTokenizer st = new StringTokenizer(br.readLine());
 
-            int tmp = 0;
-            if(d.get(0).equals(d.get(3))) tmp = 50000 + (d.get(3) * 5000);
-            else if(d.get(1).equals(d.get(2))) {
-                if (d.get(0).equals(d.get(1)) || d.get(1).equals(d.get(3))) tmp = 10000 + d.get(2) * 1000;
-                else tmp = 1000 + d.get(1)* 100;
+            int[] arr = new int[4];
+            int temp = 0;
+            while (st.hasMoreTokens()) {
+                arr[temp++] = Integer.parseInt(st.nextToken());
             }
-            else if (d.get(0).equals(d.get(1)) && d.get(2).equals(d.get(3))) tmp = 2000 + d.get(1) * 500 + d.get(2) * 500;
-            else tmp = d.get(3)* 100;
-            ans = Math.max(tmp, ans);
+
+            Arrays.sort(arr);
+
+            if (arr[0]==arr[3]) temp = 50000 + arr[3] * 5000;
+            else if (arr[1]==arr[2]) {
+                if (arr[0]==arr[2] || arr[1]==arr[3]) temp = 10000 + arr[2] * 1000;
+                else temp = 1000 + arr[2] * 100;
+            }
+            else if (arr[0]==arr[1]) {
+                if (arr[2]==arr[3]) temp = 2000 + arr[1] * 500 + arr[3] * 500;
+                else temp = 1000 + arr[1] * 100;
+            } else if (arr[2]==arr[3]) temp = 1000 + arr[3] * 100;
+            else temp = arr[3] * 100;
+            ans = Math.max(ans, temp);
         }
         System.out.println(ans);
     }

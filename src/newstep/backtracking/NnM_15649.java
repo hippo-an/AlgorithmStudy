@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class NnM_1 {
+public class NnM_15649 {
 
     private static int N, M;
     private static int[] ANS;

@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class NQueen {
+public class NQueen_9663 {
 
     private static int N, ANS;
     private static int[] COL;

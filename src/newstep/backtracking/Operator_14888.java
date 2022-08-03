@@ -27,9 +27,13 @@ public class Operator_14888 {
         System.out.println(sb.toString());
     }
 
+    // i -> 1 => +
+    // i -> 2 => -
+    // i -> 3 => *
+    // i -> 4 => /
     private static void recursiveFunction(int k, int value) {
         // 들어온 입력과 같은 경우
-        if (k == N) {
+        if (k == N) {  // 연산자의 수가 아닌 입력된 수의 값과 같은 경우
             // min max update
             MIN = Math.min(value, MIN);
             MAX = Math.max(value, MAX);

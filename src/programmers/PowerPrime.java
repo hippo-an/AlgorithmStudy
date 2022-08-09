@@ -17,15 +17,17 @@ public class PowerPrime {
 
         memo[0] = memo[1] = true;
 
-        int r = 1;
-        for (int i = 3; i <= n; i += 2) {
+        int r = 0;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
             if (!memo[i]) {
-                r++;
-                for(int j=2*i;j<=n; j+=i) {
+                for(int j=i*i;j<=n; j+=i) {
                     memo[j] = true;
                 }
             }
+        }
 
+        for (boolean b : memo) {
+            if (!b) r++;
         }
 
 

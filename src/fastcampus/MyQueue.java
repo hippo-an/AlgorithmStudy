@@ -28,6 +28,7 @@ public class MyQueue<T> {
         System.out.println(q.dequeue());
         System.out.println(q.dequeue());
         System.out.println(q.dequeue());
-        System.out.println(q.dequeue());
+        System.out.println(q.dequeue())
+        ;
     }
 }

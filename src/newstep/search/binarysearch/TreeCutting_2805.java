@@ -9,7 +9,8 @@ import java.util.StringTokenizer;
 
 public class TreeCutting_2805 {
 
-    private static int N, M, L, R;
+    private static int N, M;
+    private static long L, R;
     private static int[] arr;
 
     public static void main(String[] args) throws IOException {
@@ -28,26 +29,37 @@ public class TreeCutting_2805 {
 
         Arrays.sort(arr, 1, N + 1);
 
-        L = 1; R = N;
-        int result = arr[N] - 1;
-        while (L < R) {
-            int mid = (L + R) / 2;
-            int bound = arr[mid];
-            long sum = 0;
-            for (int i = mid + 1; i <= R; i++) {
-                sum += (arr[i] - bound);
-            }
+        L = arr[1];
+        R = arr[N];
+        long result = arr[N];
+        if (R == 0) result = 0;
+        else {
+            outer:
+            while (L <= R) {
+                long mid = (L + R) / 2;
+                long tempSum = 0;
+                for (int i = N; i >= 1; i--) {
+                    if (arr[i] > mid) {
+                        tempSum += (arr[i] - mid);
+                    }
 
-            if (sum < M) {
-                R = mid;
-            } else if (sum == M){
-                result = arr[mid];
-                break;
-            } else {
-                L = mid;
+                    if (tempSum > M) {
+                        L = mid;
+                        continue outer;
+                    }
+                }
+
+                if (tempSum == M) {
+                    result = mid;
+                    break;
+                } else {
+                    R = mid;
+                }
             }
         }
 
+
         System.out.println(result);
     }
+
 }

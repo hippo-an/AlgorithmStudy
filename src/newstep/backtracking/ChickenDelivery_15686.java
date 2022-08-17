@@ -3,66 +3,69 @@ package newstep.backtracking;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class ChickenDelivery_15686 {
 
     private static int N, M, ans = Integer.MAX_VALUE;
-    private static int[][]  arr;
-    private static int[][] chicken;
-    private static boolean[][] selected;
+    private static int[][] house = new int[101][2], chicken = new int[14][2];
+    private static boolean[] selected = new boolean[14];
+
+    private static int hCnt = 1, cCnt = 1;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         String[] s = br.readLine().split(" ");
         N = Integer.parseInt(s[0]);
         M = Integer.parseInt(s[1]);
-        chicken = new int[N + 1][2];
-        arr = new int[N + 1][N + 1];
-        selected = new boolean[N + 1][N + 1];
 
         StringTokenizer st;
         for (int i = 1; i <= N; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 1; j <= N; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
+                int val = Integer.parseInt(st.nextToken());
+                if (val == 1) {
+                    house[hCnt][0] = i;
+                    house[hCnt][1] = j;
+                    hCnt++;
+                } else if (val == 2) {
+                    chicken[cCnt][0] = i;
+                    chicken[cCnt][1] = j;
+                    cCnt++;
+                }
             }
         }
-        recursiveFunction(1);
+
+        recursiveFunction(1, 0);
         System.out.println(ans);
     }
 
-    private static void recursiveFunction(int X) {
-        if (X == M + 1) {
+    private static void recursiveFunction(int T, int idx) {
+        if (T == M + 1) {
             int total = 0;
-            for (int x = 1; x <= N; x++) {
-                for (int y = 1; y <= N; y++) {
-                    if (arr[x][y]  == 1) {
-                        int temp = Integer.MAX_VALUE;
-                        for (int xx = 1; xx <= N; xx++) {
-                            for (int yy = 1; yy <= N; yy++) {
-                                if (selected[xx][yy]) {
-                                    temp = Math.min(Math.abs(x - xx) + Math.abs(y - yy), temp);
-                                }
-                            }
+            for (int i = 1; i < house.length; i++) {
+                if (house[i][0] != 0 && house[i][1] != 0) {
+                    int temp = Integer.MAX_VALUE;
+                    for (int j = 1; j < chicken.length; j++) {
+                        if (selected[j]) {
+                            int dist = Math.abs(chicken[j][0] - house[i][0]) + Math.abs(chicken[j][1] - house[i][1]);
+                            temp = Math.min(temp, dist);
                         }
-
-                        total += temp;
                     }
+                    total += temp;
                 }
             }
-
-            ans = Math.min(total, ans);
-        } else {
-            for (int x = 1; x <= N; x++) {
-                for (int y = 1; y <= N; y++) {
-                    if (arr[x][y] == 2) {
-                        selected[x][y] = true;
-                        recursiveFunction(X + 1);
-                        selected[x][y] = false;
-                    }
-                }
+            ans = Math.min(ans, total);
+            return;
+        }
+        for (int i = idx + 1; i < chicken.length; i++) {
+            if (!selected[i]) {
+                selected[i] = true;
+                recursiveFunction(T + 1, idx);
+                selected[i] = false;
             }
         }
+
     }
 }

@@ -3,69 +3,76 @@ package newstep.backtracking;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class ChickenDelivery_15686 {
 
-    private static int N, M, ans = Integer.MAX_VALUE;
-    private static int[][] house = new int[101][2], chicken = new int[14][2];
-    private static boolean[] selected = new boolean[14];
-
-    private static int hCnt = 1, cCnt = 1;
+    static int N, M, ans;
+    static ArrayList<Node> chicken, house;
+    static Stack<Node> selected;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] s = br.readLine().split(" ");
-        N = Integer.parseInt(s[0]);
-        M = Integer.parseInt(s[1]);
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        ans = Integer.MAX_VALUE;
+        chicken = new ArrayList<>();
+        house = new ArrayList<>();
+        selected = new Stack<>();
 
-        StringTokenizer st;
-        for (int i = 1; i <= N; i++) {
-            st = new StringTokenizer(br.readLine());
-            for (int j = 1; j <= N; j++) {
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine(), " ");
+            for (int j = 0; j < N; j++) {
                 int val = Integer.parseInt(st.nextToken());
                 if (val == 1) {
-                    house[hCnt][0] = i;
-                    house[hCnt][1] = j;
-                    hCnt++;
+                    house.add(new Node(i, j));
                 } else if (val == 2) {
-                    chicken[cCnt][0] = i;
-                    chicken[cCnt][1] = j;
-                    cCnt++;
+                    chicken.add(new Node(i, j));
                 }
             }
         }
 
-        recursiveFunction(1, 0);
+        recursiveFunction(0, 0);
         System.out.println(ans);
     }
 
-    private static void recursiveFunction(int T, int idx) {
-        if (T == M + 1) {
+    public static void recursiveFunction(int T, int idx) {
+        if (T == M) {
             int total = 0;
-            for (int i = 1; i < house.length; i++) {
-                if (house[i][0] != 0 && house[i][1] != 0) {
-                    int temp = Integer.MAX_VALUE;
-                    for (int j = 1; j < chicken.length; j++) {
-                        if (selected[j]) {
-                            int dist = Math.abs(chicken[j][0] - house[i][0]) + Math.abs(chicken[j][1] - house[i][1]);
-                            temp = Math.min(temp, dist);
-                        }
-                    }
-                    total += temp;
+            for (int i = 0; i < house.size(); i++) {
+                int x = house.get(i).x;
+                int y = house.get(i).y;
+                int temp = Integer.MAX_VALUE;
+                for (Node chicken : selected) {
+                    temp = Math.min(temp, getDistance(chicken.x, x, chicken.y, y));
                 }
+                total += temp;
             }
             ans = Math.min(ans, total);
             return;
         }
-        for (int i = idx + 1; i < chicken.length; i++) {
-            if (!selected[i]) {
-                selected[i] = true;
-                recursiveFunction(T + 1, idx);
-                selected[i] = false;
-            }
+        for (int i = idx; i < chicken.size(); i++) {
+            selected.push(new Node(chicken.get(i).x, chicken.get(i).y));
+            recursiveFunction(T + 1, idx + 1);
+            selected.pop();
         }
 
+    }
+
+    public static int getDistance(int x, int x1, int y, int y1) {
+        return Math.abs(x - x1) + Math.abs(y - y1);
+    }
+}
+
+class Node {
+    int x;
+    int y;
+
+    public Node(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }

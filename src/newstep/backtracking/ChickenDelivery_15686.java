@@ -9,9 +9,10 @@ import java.util.StringTokenizer;
 
 public class ChickenDelivery_15686 {
 
-    static int N, M, ans;
-    static ArrayList<Node> chicken, house;
-    static Stack<Node> selected;
+    private static int N, M, ans;
+    private static ArrayList<Node> chicken, house;
+    private static Stack<Node> selected;
+
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,6 +23,7 @@ public class ChickenDelivery_15686 {
         chicken = new ArrayList<>();
         house = new ArrayList<>();
         selected = new Stack<>();
+
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine(), " ");
@@ -39,15 +41,13 @@ public class ChickenDelivery_15686 {
         System.out.println(ans);
     }
 
-    public static void recursiveFunction(int T, int idx) {
+    private static void recursiveFunction(int T, int idx) {
         if (T == M) {
             int total = 0;
-            for (int i = 0; i < house.size(); i++) {
-                int x = house.get(i).x;
-                int y = house.get(i).y;
+            for (Node house : house) {
                 int temp = Integer.MAX_VALUE;
                 for (Node chicken : selected) {
-                    temp = Math.min(temp, getDistance(chicken.x, x, chicken.y, y));
+                    temp = Math.min(getDistance(house.x, chicken.x, house.y, chicken.y), temp);
                 }
                 total += temp;
             }
@@ -56,23 +56,23 @@ public class ChickenDelivery_15686 {
         }
         for (int i = idx; i < chicken.size(); i++) {
             selected.push(new Node(chicken.get(i).x, chicken.get(i).y));
-            recursiveFunction(T + 1, idx + 1);
+            recursiveFunction(T + 1, i + 1);
             selected.pop();
         }
 
     }
 
-    public static int getDistance(int x, int x1, int y, int y1) {
+    private static int getDistance(int x, int x1, int y, int y1) {
         return Math.abs(x - x1) + Math.abs(y - y1);
     }
-}
+    private static class Node {
+        int x;
+        int y;
 
-class Node {
-    int x;
-    int y;
-
-    public Node(int x, int y) {
-        this.x = x;
-        this.y = y;
+        public Node(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
+
 }

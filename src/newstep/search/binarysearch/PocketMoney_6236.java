@@ -23,7 +23,7 @@ public class PocketMoney_6236 {
             L = Math.max(arr[i], L);
         }
 
-        int R = 10_000, ans = R;
+        int R = 1_000_000_000, ans = R;
 
         while(L <= R) {
             int mid = (L + R) / 2;
@@ -38,20 +38,17 @@ public class PocketMoney_6236 {
 
     private static boolean determination(int mid) {
 
-        int temp = mid;
-        int cnt = 0;
+        int sum = 0;
+        int cnt = 1;
         for (int i = 1; i <= N; i++) {
-            if (temp - arr[i] > 0) {
-                temp -= arr[i];
-            } else if (temp == 0) {
-                temp = mid;
+            if (sum + arr[i] > mid) {
                 cnt++;
+                sum = arr[i];
             } else {
-                cnt++;
-                temp = mid - arr[i];
+                sum += arr[i];
             }
 
         }
-        return cnt < M;
+        return cnt <= M;
     }
 }

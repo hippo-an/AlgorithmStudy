@@ -1,4 +1,4 @@
-package newstep.progression;
+package newstep.progression.bronze;
 
 import java.io.BufferedReader;
 import java.io.IOException;

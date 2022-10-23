@@ -1,4 +1,4 @@
-package newstep.progression;
+package newstep.progression.sprout;
 
 public class Register_7287 {
     public static void main(String[] args) {

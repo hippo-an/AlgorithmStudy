@@ -1,4 +1,4 @@
-package newstep.progression;
+package newstep.progression.sprout;
 
 public class Sprout_25083 {
     public static void main(String[] args) {

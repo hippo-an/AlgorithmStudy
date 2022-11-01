@@ -1,4 +1,4 @@
-package newstep.progression.sprout;
+package newstep.progression.boj.sprout;
 
 import java.io.BufferedReader;
 import java.io.IOException;

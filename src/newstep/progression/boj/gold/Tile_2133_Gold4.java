@@ -1,4 +1,4 @@
-package newstep.progression.boj.silver;
+package newstep.progression.boj.gold;
 
 import java.io.BufferedReader;
 import java.io.IOException;

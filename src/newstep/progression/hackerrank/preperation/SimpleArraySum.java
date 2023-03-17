@@ -1,4 +1,4 @@
-package newstep.progression.hackerrank;
+package newstep.progression.hackerrank.preperation;
 
 import java.util.List;
 

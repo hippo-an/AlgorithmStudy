@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class FindDivisors {
+public class FindDivisors_2501_3 {
 
     private static int N, K;
 

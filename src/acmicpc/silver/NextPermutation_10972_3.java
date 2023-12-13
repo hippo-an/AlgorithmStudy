@@ -36,7 +36,8 @@ public class NextPermutation_10972_3 {
         int i = arr.length - 1;
 
         // 1. A[i-1] < A [i]를 만족하는 가장 큰 i를 찾는다.
-        while (i > 0 && arr[i - 1] > arr[i]) {
+        // 뒤에서부터 최대 오름차순 구간을 찾는다.
+        while (i > 0 && arr[i - 1] >= arr[i]) {
             i--;
         }
 
@@ -45,6 +46,7 @@ public class NextPermutation_10972_3 {
         }
             
         // 2. j >= i 이면서 A[j] > A [i-1]을 만족하는 가장 큰 j를 찾는다.
+        // i-1 의 수가 바꿔야 하는 수이고 어떤 수와 바꿀지(j 인덱스의 값)찾는다.
         int j = arr.length - 1;
         while (j >= i - 1 && arr[i - 1] >= arr[j]) {
             j--;

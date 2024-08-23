@@ -17,6 +17,7 @@ public class StealStick_10799 {
             if (current == '(') {
                 stack.push(current);
             } else {
+                // 첫번째 닫힘 괄호
                 if (s.charAt(i - 1) == '(') {
                     stack.pop();
                     totalCount += stack.size();
